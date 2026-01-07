@@ -1,0 +1,83 @@
+/*
+ Theme Name:   For The Better Hello child
+ Theme URI:    https://forthebetter.nl/
+ Description:  For The Better Hello child is a child theme of Hello Elementor, created by For The Better.
+ Author:       For The Better
+ Author URI:   https://forthebetter.nl/
+ Template:     hello-elementor
+ Version:      1.0.0
+ License:      GNU General Public License v2 or later
+ License URI:  https://www.gnu.org/licenses/gpl-2.0.html  
+*/
+
+/* Add your custom styles here */
+
+html { font-size: 1.125rem; }
+@media screen and (max-width:1920px) { html { font-size: calc(0.625rem + 0.41666666666666674vw); } }
+@media screen and (max-width:1440px) { html { font-size: calc(0.8126951092611863rem + 0.20811654526534862vw); } }
+@media screen and (max-width:479px) { html { font-size: calc(0.7494769874476988rem + 0.8368200836820083vw); } }
+
+
+
+/* Underlined links */
+:is(h1, h2, h3, h4, h5, h6, p) a {
+  text-decoration: underline;
+}
+
+.elementor-icon-list-item a:hover, .elementor-text-editor p a:hover {
+  text-decoration: none;
+}
+
+/* break words when overflowing content */
+body {
+word-break: break-word;
+}
+
+/* Set color style to inherit */
+.inherit-color * {
+  color: inherit;
+}
+
+/* line clamp */
+.line-clamp-1, .line-clamp-2, .line-clamp-3, .line-clamp-4 {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.line-clamp-2 { -webkit-line-clamp: 2; }
+.line-clamp-3 { -webkit-line-clamp: 3; }
+.line-clamp-4 { -webkit-line-clamp: 4; }
+
+/* Screenreader text only CSS */
+.sr-only {  
+  border: 0;  
+  clip: rect(1px, 1px, 1px, 1px); 
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  word-wrap: normal !important; 
+}
+
+/* Show or hide social icons */
+.elementor-social-icon:not([href]) {
+display:none;
+}
+
+.elementor-social-icon {
+margin-right: 12px !important;
+}
+
+footer li.elementor-icon-list-item a {
+color: #ffffff !important;
+text-decoration: underline !important;
+}
+
+footer li.elementor-icon-list-item a:hover {
+text-decoration: none !important;
+}
+
