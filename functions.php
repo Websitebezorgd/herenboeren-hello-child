@@ -1,8 +1,15 @@
 <?php
 // Child theme stylesheet laden
-add_action('wp_enqueue_scripts', 'herenboeren_hello_child_enqueue_styles', 11);
+add_action('wp_enqueue_scripts', 'herenboeren_hello_child_enqueue_styles');
 function herenboeren_hello_child_enqueue_styles() {
-    wp_enqueue_style('child-style', get_stylesheet_uri());
+
+    wp_enqueue_style(
+        'hello-elementor-child-style',
+        get_stylesheet_uri(),
+        array('hello-elementor-theme-style'),
+        wp_get_theme()->get('Version')
+    );
+
 }
 
 // Dashboard widget toevoegen
