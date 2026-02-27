@@ -1,0 +1,32 @@
+name: Build Child Theme Release
+
+# Trigger de workflow bij elke git tag die begint met "v"
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Haal de code van de repo
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      # 2. Maak een ZIP van het child theme
+      - name: Create ZIP
+        run: |
+          mkdir build
+          rsync -av --exclude='.git*' ./ build/herenboeren-hello-child
+          cd build
+          zip -r herenboeren-hello-child.zip herenboeren-hello-child
+
+      # 3. Maak een GitHub Release en upload de ZIP
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: build/herenboeren-hello-child.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
