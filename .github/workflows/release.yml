@@ -1,6 +1,11 @@
 name: Build Child Theme Release
 
-# Trigger de workflow bij elke git tag die begint met "v"
+# Geef write-permissions zodat releases aangemaakt kunnen worden
+permissions:
+  contents: write
+  packages: write
+
+# Trigger de workflow bij een tag push
 on:
   push:
     tags:
@@ -11,11 +16,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      # 1. Haal de code van de repo
-      - name: Checkout repo
+      # Checkout de repo
+      - name: Checkout repository
         uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      # 2. Maak een ZIP van het child theme
+      # Maak de ZIP van de theme
       - name: Create ZIP
         run: |
           mkdir build
@@ -23,7 +30,7 @@ jobs:
           cd build
           zip -r herenboeren-hello-child.zip herenboeren-hello-child
 
-      # 3. Maak een GitHub Release en upload de ZIP
+      # Upload ZIP naar GitHub Release
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v1
         with:
