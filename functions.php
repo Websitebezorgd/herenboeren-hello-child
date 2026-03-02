@@ -384,4 +384,23 @@ function block_editor_direct_access_to_appearance_pages() {
     }
 }
 add_action('admin_init', 'block_editor_direct_access_to_appearance_pages');
+
+// Cache flushen na theme update
+add_action('upgrader_process_complete', function($upgrader, $options) {
+    // Check of het een theme update is
+    if ($options['type'] === 'theme') {
+        // WordPress object cache
+        if (function_exists('wp_cache_flush')) {
+            wp_cache_flush();
+        }
+        // PHP opcache
+        if (function_exists('opcache_reset')) {
+            @opcache_reset();
+        }
+        // SiteGround cache (optioneel)
+        if (function_exists('sg_cachepress_purge_cache')) {
+            sg_cachepress_purge_cache();
+        }
+    }
+}, 10, 2);
 ?>
