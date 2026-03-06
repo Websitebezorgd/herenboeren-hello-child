@@ -403,4 +403,13 @@ add_action('upgrader_process_complete', function($upgrader, $options) {
         }
     }
 }, 10, 2);
+
+// test comment om te controleren of de cache flush werkt
+/* 
+git add . 
+git commit -m "commit message" 
+git push
+git tag v1.1.1
+git push origin v1.1.1
+*/
 ?>
