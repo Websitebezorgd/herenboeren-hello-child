@@ -22,6 +22,35 @@ jobs:
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
 
+       # Haal huidige versie uit style.css
+      - name: Get current version
+        id: get_version
+        run: |
+          VERSION=$(grep -i "Version:" style.css | awk '{print $2}')
+          echo "Current version: $VERSION"
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+
+      # Verhoog patch nummer
+      - name: Bump patch version
+        id: bump
+        run: |
+          IFS='.' read -r MAJOR MINOR PATCH <<< "$VERSION"
+          PATCH=$((PATCH+1))
+          NEW_VERSION="$MAJOR.$MINOR.$PATCH"
+          echo "New version: $NEW_VERSION"
+          sed -i "s/Version: $VERSION/Version: $NEW_VERSION/" style.css
+          echo "NEW_VERSION=$NEW_VERSION" >> $GITHUB_ENV
+
+      # Commit de versie bump en push + tag
+      - name: Commit and tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "actions@github.com"
+          git add style.css
+          git commit -m "Bump version to $NEW_VERSION"
+          git tag "v$NEW_VERSION"
+          git push origin main --tags
+
       # Maak de ZIP van de theme
       - name: Create ZIP
         run: |
